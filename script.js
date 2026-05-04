@@ -43,7 +43,12 @@ let weakPool = [];
 let pendingResult = null;
 
 function shuffle(array) {
-  return [...array].sort(() => Math.random() - 0.5);
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
 }
 
 function makeQuestion(verb, mode) {
