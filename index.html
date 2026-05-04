@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>不規則動詞クイズ</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <h1>不規則動詞クイズ</h1>
+        <p>ゲーム感覚で5〜10分学習。まちがえた単語を重点復習！</p>
+      </header>
+
+      <section class="panel" id="setup-panel">
+        <h2>学習設定</h2>
+        <label>
+          出題モード
+          <select id="mode">
+            <option value="meaning_to_all">意味 → 3活用</option>
+            <option value="base_to_past">原形 → 過去形</option>
+            <option value="base_to_pp">原形 → 過去分詞</option>
+            <option value="mixed">ミックス</option>
+          </select>
+        </label>
+        <label>
+          1セットの問題数
+          <input id="question-count" type="number" value="8" min="3" max="30" />
+        </label>
+        <button id="start-btn">開始する</button>
+      </section>
+
+      <section class="panel hidden" id="quiz-panel">
+        <div class="progress-row">
+          <span id="progress"></span>
+          <span id="score"></span>
+        </div>
+        <p id="prompt" class="prompt"></p>
+
+        <div id="answers" class="answers"></div>
+
+        <div class="actions">
+          <button id="check-btn">採点</button>
+          <button id="next-btn" class="hidden">次へ</button>
+        </div>
+        <p id="feedback" class="feedback"></p>
+      </section>
+
+      <section class="panel hidden" id="result-panel">
+        <h2>けっかはっぴょう 🎉</h2>
+        <p id="result-summary"></p>
+        <h3>要復習</h3>
+        <ul id="weak-list"></ul>
+        <div class="actions">
+          <button id="retry-weak-btn">間違いだけ再挑戦</button>
+          <button id="restart-btn">最初から</button>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>

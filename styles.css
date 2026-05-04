@@ -1,0 +1,131 @@
+:root {
+  font-family: "M PLUS Rounded 1c", "Hiragino Maru Gothic ProN", "Yu Gothic", sans-serif;
+  color: #24324d;
+  background: linear-gradient(180deg, #f5fbff 0%, #fff8f0 100%);
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 1rem;
+}
+
+.app {
+  max-width: 760px;
+  margin: 0 auto;
+}
+
+header {
+  background: linear-gradient(135deg, #6cc7ff, #8a8dff);
+  color: white;
+  border-radius: 20px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 8px 18px rgba(97, 110, 255, 0.25);
+}
+
+h1 {
+  font-size: clamp(1.6rem, 4vw, 2.2rem);
+  margin: 0 0 0.35rem;
+}
+
+header p {
+  margin: 0;
+  font-size: clamp(1rem, 2.5vw, 1.15rem);
+}
+
+.panel {
+  background: white;
+  border: 3px solid #d9e4ff;
+  border-radius: 18px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 6px 14px rgba(44, 66, 132, 0.08);
+}
+
+.hidden { display: none; }
+
+h2 {
+  font-size: 1.45rem;
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  margin: 0.9rem 0;
+  font-size: 1.08rem;
+  font-weight: 700;
+}
+
+input, select, button {
+  width: 100%;
+  font-size: 1.08rem;
+  padding: 0.9rem 0.85rem;
+  margin-top: 0.35rem;
+  min-height: 52px;
+}
+
+input, select {
+  border-radius: 12px;
+  border: 2px solid #ced9f4;
+  background: #fcfdff;
+}
+
+button {
+  border-radius: 14px;
+  border: none;
+  background: linear-gradient(180deg, #ffd36e, #ffbf3f);
+  color: #503100;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(255, 170, 46, 0.3);
+  transition: transform 0.08s ease;
+}
+
+button:hover { transform: translateY(-1px); }
+button:active { transform: translateY(1px); }
+
+.prompt {
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
+  font-weight: 800;
+  background: #f2f8ff;
+  border: 2px dashed #8bb4ff;
+  border-radius: 12px;
+  padding: 0.7rem;
+}
+
+.progress-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.02rem;
+  font-weight: 700;
+}
+
+.answer-row { margin-bottom: 0.75rem; }
+.answer-row input { width: 100%; }
+.feedback {
+  min-height: 1.5rem;
+  font-size: 1.05rem;
+  font-weight: 800;
+}
+.actions {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.6rem;
+  margin-top: 0.75rem;
+}
+
+#weak-list {
+  margin: 0;
+  padding-left: 1.1rem;
+  line-height: 1.7;
+  font-size: 1.02rem;
+}
+
+@media (min-width: 640px) {
+  .actions {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
