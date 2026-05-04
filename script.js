@@ -9,6 +9,13 @@ const verbs = [
   { meaning: "走る", base: "run", past: "ran", pp: "run" }
 ];
 
+const fieldLabels = {
+  base: "現在形",
+  past: "過去形",
+  pp: "過去分詞"
+};
+
+
 const ui = {
   setup: document.getElementById("setup-panel"),
   quiz: document.getElementById("quiz-panel"),
@@ -36,7 +43,12 @@ let weakPool = [];
 let pendingResult = null;
 
 function shuffle(array) {
-  return [...array].sort(() => Math.random() - 0.5);
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
 }
 
 function makeQuestion(verb, mode) {
@@ -72,7 +84,7 @@ function renderQuestion() {
   q.fields.forEach((field) => {
     const row = document.createElement("div");
     row.className = "answer-row";
-    row.innerHTML = `<label>${field}<input data-field="${field}" autocomplete="off" /></label>`;
+    row.innerHTML = `<label>${fieldLabels[field]}<input data-field="${field}" autocomplete="off" /></label>`;
     ui.answers.appendChild(row);
   });
   ui.feedback.textContent = "";
@@ -91,7 +103,7 @@ function gradeCurrent() {
     const expected = q.verb[field].toLowerCase();
     if (got !== expected) {
       isCorrect = false;
-      details.push(`${field}: ${q.verb[field]}`);
+      details.push(`${fieldLabels[field]}: ${q.verb[field]}`);
     }
   });
 
@@ -127,7 +139,8 @@ function showResults() {
 
 function startSession(pool = verbs) {
   const mode = ui.mode.value;
-  const count = Math.max(3, Number(ui.questionCount.value) || 8);
+  const requestedCount = Number(ui.questionCount.value);
+  const count = Math.min(30, Math.max(3, requestedCount || 8));
   questions = buildQuestions(pool, mode, count);
   current = 0;
   correct = 0;
