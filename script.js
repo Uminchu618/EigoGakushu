@@ -42,7 +42,12 @@ let weakPool = [];
 let pendingResult = null;
 
 function shuffle(array) {
-  return [...array].sort(() => Math.random() - 0.5);
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i -= 1) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
 }
 
 function makeQuestion(verb, mode) {
@@ -133,7 +138,8 @@ function showResults() {
 
 function startSession(pool = verbs) {
   const mode = ui.mode.value;
-  const count = Math.max(3, Number(ui.questionCount.value) || 8);
+  const requestedCount = Number(ui.questionCount.value);
+  const count = Math.min(30, Math.max(3, requestedCount || 8));
   questions = buildQuestions(pool, mode, count);
   current = 0;
   correct = 0;
