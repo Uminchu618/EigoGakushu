@@ -89,6 +89,7 @@ function renderQuestion() {
   ui.feedback.textContent = "";
   ui.checkBtn.classList.remove("hidden");
   ui.nextBtn.classList.add("hidden");
+  ui.answers.querySelector("input")?.focus();
 }
 
 function gradeCurrent() {
@@ -116,6 +117,17 @@ function gradeCurrent() {
   ui.score.textContent = `正解: ${correct}`;
   ui.checkBtn.classList.add("hidden");
   ui.nextBtn.classList.remove("hidden");
+  ui.nextBtn.focus();
+}
+
+function moveToNextStep() {
+  if (!ui.nextBtn.classList.contains("hidden")) {
+    ui.nextBtn.click();
+    return;
+  }
+  if (!ui.checkBtn.classList.contains("hidden")) {
+    gradeCurrent();
+  }
 }
 
 function showResults() {
@@ -134,6 +146,7 @@ function showResults() {
     });
   }
   pendingResult = uniqueWeak;
+  ui.restartBtn.focus();
 }
 
 function startSession(pool = verbs) {
@@ -167,4 +180,46 @@ ui.retryWeakBtn.addEventListener("click", () => {
 ui.restartBtn.addEventListener("click", () => {
   ui.result.classList.add("hidden");
   ui.setup.classList.remove("hidden");
+  ui.mode.focus();
 });
+
+ui.answers.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") {
+    return;
+  }
+
+  event.preventDefault();
+  event.stopPropagation();
+  const inputs = [...ui.answers.querySelectorAll("input")];
+  const currentInputIndex = inputs.indexOf(event.target);
+  const nextInput = inputs[currentInputIndex + 1];
+
+  if (nextInput) {
+    nextInput.focus();
+  } else {
+    moveToNextStep();
+  }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key !== "Enter") {
+    return;
+  }
+
+  if (!ui.setup.classList.contains("hidden")) {
+    const activeElement = document.activeElement;
+    const canStartFromKeyboard = activeElement === ui.questionCount || activeElement === ui.startBtn;
+    if (canStartFromKeyboard) {
+      event.preventDefault();
+      startSession(verbs);
+    }
+    return;
+  }
+
+  if (!ui.quiz.classList.contains("hidden") && document.activeElement === ui.nextBtn) {
+    event.preventDefault();
+    moveToNextStep();
+  }
+});
+
+ui.mode.focus();
