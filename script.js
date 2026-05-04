@@ -15,7 +15,6 @@ const fieldLabels = {
   pp: "過去分詞"
 };
 
-
 const ui = {
   setup: document.getElementById("setup-panel"),
   quiz: document.getElementById("quiz-panel"),
